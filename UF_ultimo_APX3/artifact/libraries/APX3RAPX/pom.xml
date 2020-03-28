@@ -1,0 +1,132 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>LIBRARIES</artifactId>
+		<groupId>com.bbva.apx3</groupId>
+		<version>0.0.0</version>
+	</parent>
+
+	<groupId>com.bbva.apx3</groupId>
+
+	<artifactId>APX3RAPX</artifactId>
+	<name>APX3RAPX</name>
+	<version>0.0.0</version>
+	<packaging>bundle</packaging>
+
+	<properties>
+		<osgi.version.manifest>0.0</osgi.version.manifest>
+		<bundle-library-name>${project.artifactId}-${project.version}</bundle-library-name>
+	</properties>
+
+	<dependencies>
+			<dependency>
+				<groupId>com.bbva.elara</groupId>
+				<artifactId>elara-aspect</artifactId>
+				<version>${apx.core.online.version}</version>
+				<optional>true</optional>
+			</dependency>
+			<dependency>
+				<groupId>com.bbva.elara</groupId>
+				<artifactId>elara-library</artifactId>
+				<version>${apx.core.online.version}</version>
+				<optional>true</optional>
+			</dependency>
+		<dependency>
+			<groupId>org.eclipse.gemini</groupId>
+			<artifactId>org.eclipse.gemini.blueprint.core</artifactId>
+				<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.framework</artifactId>
+				<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+				<optional>true</optional>
+		</dependency>
+<dependency>
+   <groupId>com.bbva.apx3.dto.apx3</groupId>
+   <artifactId>APX3CAPX</artifactId>
+   <version>0.0.0</version>
+      </dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+				<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.bbva.elara</groupId>
+			<artifactId>elara-configuration-manager-application</artifactId>
+			<version>${apx.core.online.version}</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.bbva.elara</groupId>
+			<artifactId>elara-utility-log</artifactId>
+			<version>${apx.core.online.version}</version>
+			<optional>true</optional>
+		</dependency>
+
+
+		<!-- Dependencias test -->
+
+	</dependencies>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-SymbolicName>${bundle-library-name}</Bundle-SymbolicName>
+						<Bundle-Category>library</Bundle-Category>
+						<Import-Package>
+						com.bbva.apx3.dto.apx3.*;version="${osgi.version.manifest}"
+							com.bbva.elara.*;version="${osgi.version.manifest}"
+							;resolution:="optional",
+							org.osgi.framework;version="${osgi.version.manifest}";resolution:="optional",
+							com.bbva.elara.aspect;version="${osgi.version.manifest}";resolution:="optional",
+							spring;version="${osgi.version.manifest}";resolution:="optional", 							org.springframework.aop;version="${osgi.version.manifest}";resolution:="optional",
+							org.springframework.aop.framework;version="${osgi.version.manifest}";resolution:="optional",
+							org.aopalliance.aop;version="${osgi.version.manifest}";resolution:="optional",
+							*;version="${osgi.version.manifest}"
+						</Import-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+
+
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<configuration>
+							<tasks>
+							  <copy todir="${outputDirectoryLibraries}" file="./target/${project.artifactId}.jar">
+							  </copy>
+							</tasks>
+							</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
